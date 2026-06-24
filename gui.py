@@ -4,7 +4,7 @@ import customtkinter as ctk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # Importing the mathematical engine from main.py
-from main import SayisalAnalizMotoru  # Note: If you rename the class inside main.py, update this line.
+from main import NumericalAnalysisEngine  # Note: If you rename the class inside main.py, update this line.
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
@@ -106,10 +106,11 @@ class NumericalAnalysisApp(ctk.CTk):
             upper_limit = float(self.txt_upper.get()) if self.txt_upper.get() else 0.0
 
             # Calculations are done via main.py (SayisalAnalizMotoru)
-            f_result = SayisalAnalizMotoru.f(x_point, func_text)
-            derivative_result = SayisalAnalizMotoru.sayisal_turev(x_point, func_text)
-            integral_result = SayisalAnalizMotoru.trapez_integral(lower_limit, upper_limit, func_text)
-            root_result = SayisalAnalizMotoru.kok_bul_bisection(func_text)
+            # Calculations are done via main.py (NumericalAnalysisEngine)
+            f_result = NumericalAnalysisEngine.f(x_point, func_text)
+            derivative_result = NumericalAnalysisEngine.numerical_derivative(x_point, func_text)
+            integral_result = NumericalAnalysisEngine.trapezoidal_integral(lower_limit, upper_limit, func_text)
+            root_result = NumericalAnalysisEngine.find_root_bisection(func_text)
 
             report_text = (
                 f" CALCULATION COMPLETED SUCCESSFULLY\n"
@@ -152,7 +153,7 @@ class NumericalAnalysisApp(ctk.CTk):
 
         for val in x_axis:
             try:
-                res = SayisalAnalizMotoru.f(val, func_text)
+                res = NumericalAnalysisEngine.f(val, func_text)
                 if isinstance(res, (int, float, np.number)):
                     y_axis.append(float(res))
                 else:
